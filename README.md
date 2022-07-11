@@ -18,7 +18,7 @@ Linux多线程服务端编程(muduo)，Linux高性能服务器编程，程序员
 
 ### TCPBuffer
 
-![](.\resources\Redme\TCPbuffer.jpg)
+![](./resources/Redme/TCPbuffer.jpg)
 
 We think about a question why use the application layer to send buffers,
 
@@ -52,9 +52,9 @@ and then the program will append the data in the stackbuf to the buffer.
 
 ### MutilTimingWheel
 
-![](.\resources\Redme\tiimingwheel.jpg)
+![](./resources/Redme/tiimingwheel.jpg)
 
-![preview](.\resources\Redme\timewheel2.jpg)
+![preview](./resources/Redme/timewheel2.jpg)
 
 ### Original Intention
 
