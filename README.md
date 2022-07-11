@@ -16,6 +16,46 @@ Linux多线程服务端编程(muduo)，Linux高性能服务器编程，程序员
 
 每本书都对我产生了或多或少的影响
 
+### TCPBuffer
+
+![](.\resources\Redme\TCPbuffer.jpg)
+
+We think about a question why use the application layer to send buffers,
+
+At this point we should know that what we said about the server sending is completed is actually written to the os buffer, and the rest can be done by tcp
+
+If you want to send 40KB of data, but the TCP send buffer of the operating system has only 25KB of remaining space, if the remaining 15KB of data has to wait for the TCP buffer to be available again, the current thread will be blocked, because it does not know when the other party will read it Pick
+
+So you can store the 15kb data, store it in the buffer of the application layer of the TCP connection, 
+
+and send it when the socket becomes writable
+
+Why use the accept buffer?
+
+If the first one we read is not a complete package, then we should temporarily store the read data in readbuffer
+
+Then how big should our buffer be?
+
+If the initial size is relatively small, then if it is not enough, 
+
+it needs to be expanded, which will waste a certain amount of time. 
+
+If it is larger than 50kb, 10,000 connections will waste 1GB of memory, which is obviously inappropriate.
+
+So we use the space buffer on the stack + the buffer of each connection to use with readv
+
+If there is not much read and the buffer is completely enough, it will be read into the buffer. 
+
+If it is not enough, it will be read into the upper area of the stackbuffer, 
+
+and then the program will append the data in the stackbuf to the buffer.
+
+### MutilTimingWheel
+
+![](.\resources\Redme\tiimingwheel.jpg)
+
+![preview](.\resources\Redme\timewheel2.jpg)
+
 ### Original Intention
 
 This is the first project I have written by myself and implemented many new functions outside of the laboratory work. At first, I planned to find a job to cope with it. Later, as my understanding of server-side programming deepened, I began to consider some new things. Now, the project achieved zero-copy in June. Later, it was found that PageCache would be used for large file transfer cache IO, so that small hot data could not make full use of the cache space, and it was changed to asynchronous IO + direct IO. Then use zero-copy for small files later.
