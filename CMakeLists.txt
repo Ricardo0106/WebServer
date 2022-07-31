@@ -7,7 +7,7 @@ set(SRCS
     HttpConn.cc
     HttpRequest.cc
     HttpResponse.cc
-    Main.cpp
+    Main.cc
     Server.cc
     Timer.cc
     Util.cc
