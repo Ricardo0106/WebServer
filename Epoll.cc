@@ -1,5 +1,8 @@
-// @Author Lin Ya
-// @Email xxbbb@vip.qq.com
+/*
+ * @Author: Zhibin Yin
+ * @Date:   2022-05-24
+ * @copyleft Apache 2.0
+ */ 
 #include "Epoll.h"
 #include <assert.h>
 #include <errno.h>
